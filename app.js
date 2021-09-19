@@ -33,6 +33,7 @@ const layout = [
     1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 
 ]
 let pacmanCurrentIndex = 500;
+let isGameOver = false;
 
 function createBoard() {
     let squareArray = [];
@@ -62,15 +63,33 @@ function createBoard() {
     }
     $grid.innerHTML = squareArray.join('');
 
+    // Show debug index
+    // document.querySelectorAll('.debug-index').forEach(el => el.style.display = 'block');
     // console.log('squareArray:', squareArray.length)
 }
 
 createBoard();
 
-// Show debug index
-// document.querySelectorAll('.debug-index').forEach(el => el.style.display = 'block');
-
 const $squares = document.querySelectorAll('.grid div');
 let $pacman = $squares[pacmanCurrentIndex];
 $pacman.classList.add("pacman");
-console.log('$pacman:', $pacman)
+
+// Pacman control
+document.addEventListener('keyup', event => {
+    if(!isGameOver) {
+        switch (event.code) {
+            case "ArrowDown":
+            // direction = width;
+            break;
+            case "ArrowUp":
+            // direction = -width;
+            break;
+            case "ArrowLeft": 
+            // direction = -1;
+            break;
+            case "ArrowRight": 
+            // direction = 1;
+            break;
+        }
+    }
+})
