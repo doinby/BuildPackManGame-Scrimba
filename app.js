@@ -2,7 +2,6 @@ const $grid = document.querySelector('.grid');
 const $scoreDisplay = document.querySelector('#score');
 
 const width = 28;
-
 const layout = [
     1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
     1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,
@@ -33,11 +32,12 @@ const layout = [
     1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
     1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 
 ]
+let pacmanCurrentIndex = 500;
 
 function createBoard() {
     let squareArray = [];
     let className = '';
-    let $square = '';
+    let square = '';
 
     for(let i in layout) {
         // Interpret styling rules according to element's values
@@ -57,10 +57,20 @@ function createBoard() {
             default: className = 'empty';
         }
         
-        $square = `<div class='${className}'></div>`;
-        squareArray = [...squareArray, $square];
+        square = `<div class='${className}'><span class="debug-index">${[i]}<span></div>`;
+        squareArray = [...squareArray, square];
     }
     $grid.innerHTML = squareArray.join('');
+
+    // console.log('squareArray:', squareArray.length)
 }
 
-createBoard()
+createBoard();
+
+// Show debug index
+// document.querySelectorAll('.debug-index').forEach(el => el.style.display = 'block');
+
+const $squares = document.querySelectorAll('.grid div');
+let $pacman = $squares[pacmanCurrentIndex];
+$pacman.classList.add("pacman");
+console.log('$pacman:', $pacman)

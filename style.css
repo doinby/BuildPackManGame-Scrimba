@@ -6,6 +6,8 @@ html {
 
 body {
     font-family: 'PT Mono', monospace;
+    background: black;
+    color: white;
 }
 
 .grid {
@@ -13,33 +15,47 @@ body {
     flex-wrap: wrap;
     width: 420px;
     height: 420px;
-    /* outline: 2px solid black; */
+    outline: 3px solid blue;
 }
 
 .grid div {
     width: 15px;
     height: 15px;
+    display: flex;
+    place-content: center;
+    place-items: center;
     /* background-color: blue; */
     /* outline: 1px solid black; */
 }
 
+.grid div:nth-child(even) {
+    color: gray;
+}
+
+.debug-index {
+    display: none;
+    font-size: 0.45rem;
+    mix-blend-mode: difference;
+}
+
 .pac-dot {
-    background-color: green;
-    border: 5px solid white;
+    background-color: mediumspringgreen;
+    border: 5px solid black;
     box-sizing: border-box;
 }
 
 .wall {
-    background-color: blue;
+    background-color: mediumspringgreen;
 }
 
 .power-pellet {
-    background-color: green;
+    background-color: lime;
     border-radius: 7.5px;
 }
 
 .pacman {
     background-color: yellow;
     border-radius: 7.5px;
+    border: none;
 }
 
