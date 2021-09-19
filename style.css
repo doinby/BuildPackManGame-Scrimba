@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Mono&display=swap');
+
+html {
+    margin: 5rem;
+}
+
+body {
+    font-family: 'PT Mono', monospace;
+}
+
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+    width: 420px;
+    height: 420px;
+    /* outline: 2px solid black; */
+}
+
+.grid div {
+    width: 15px;
+    height: 15px;
+    /* background-color: blue; */
+    /* outline: 1px solid black; */
+}
+
+.pac-dot {
+    background-color: green;
+    border: 5px solid white;
+    box-sizing: border-box;
+}
+
+.wall {
+    background-color: blue;
+}
+
+.power-pellet {
+    background-color: green;
+    border-radius: 7.5px;
+}
+
+.pacman {
+    background-color: yellow;
+    border-radius: 7.5px;
+}
+
