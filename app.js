@@ -3,12 +3,6 @@ const $scoreDisplay = document.querySelector('#score');
 
 const width = 28;
 
-// 0 - pac-dots
-// 1 - wall
-// 2 - ghost-lair
-// 3 - power-pellet
-// 4 - empty
-
 const layout = [
     1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
     1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,
@@ -41,32 +35,32 @@ const layout = [
 ]
 
 function createBoard() {
-    // console.log(layout.length);
     let squareArray = [];
-    let square;
     let className = '';
+    let $square = '';
+
     for(let i in layout) {
+        // Interpret styling rules according to element's values
         switch (layout[i]) {
-          case 0:
-            className = "pac-dot";
+            case 0:
+            className = 'pac-dot';
             break;
-          case 1:
-            className = "wall";
+            case 1:
+            className = 'wall';
             break;
-          case 2:
-            className = "ghost-lair";
+            case 2:
+            className = 'ghost-lair';
             break;
-          case 3:
-            className = "power-pellet";
+            case 3:
+            className = 'power-pellet';
             break;
-          default: className = 'empty';
+            default: className = 'empty';
         }
         
-        square = `<div class="${className}"></div>`;
-        squareArray = [...squareArray, square];
+        $square = `<div class='${className}'></div>`;
+        squareArray = [...squareArray, $square];
     }
     $grid.innerHTML = squareArray.join('');
-    
 }
 
 createBoard()
