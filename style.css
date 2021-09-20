@@ -2,6 +2,7 @@
 
 html {
     margin: 5rem;
+    overflow-y: hidden;
 }
 
 body {
@@ -48,6 +49,10 @@ body {
     background-color: mediumspringgreen;
 }
 
+.portal {
+    background-color: blue;
+}
+
 .power-pellet {
     background-color: orange;
     border-radius: 7.5px; 
@@ -57,5 +62,25 @@ body {
     background-color: yellow;
     border-radius: 7.5px;
     border: none;
+}
+
+.ghost {
+    border: none;
+}
+
+.blinky {
+    background: red;
+}
+
+.pinky {
+    background: magenta;
+}
+
+.inky {
+    background: aqua;
+}
+
+.clyde {
+    background: orange;
 }
 
