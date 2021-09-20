@@ -34,12 +34,13 @@ const layout = [
 ]
 let pacmanCurrentIndex = 500;
 let isGameOver = false;
+let direction = 1;
 
 function createBoard() {
     let squareArray = [];
     let className = '';
     let square = '';
-
+    
     for(let i in layout) {
         // Interpret styling rules according to element's values
         switch (layout[i]) {
@@ -62,7 +63,7 @@ function createBoard() {
         squareArray = [...squareArray, square];
     }
     $grid.innerHTML = squareArray.join('');
-
+    
     // Show debug index
     // document.querySelectorAll('.debug-index').forEach(el => el.style.display = 'block');
     // console.log('squareArray:', squareArray.length)
@@ -74,22 +75,48 @@ const $squares = document.querySelectorAll('.grid div');
 let $pacman = $squares[pacmanCurrentIndex];
 $pacman.classList.add("pacman");
 
-// Pacman control
-document.addEventListener('keyup', event => {
-    if(!isGameOver) {
-        switch (event.code) {
-            case "ArrowDown":
-            // direction = width;
-            break;
-            case "ArrowUp":
-            // direction = -width;
-            break;
-            case "ArrowLeft": 
-            // direction = -1;
-            break;
-            case "ArrowRight": 
-            // direction = 1;
-            break;
+function animatePacman(direction) {
+    // check if pacman is within boundary
+    if(!(pacmanCurrentIndex + width >= width * width && direction === width) || // if he doesnt hit bottom
+    !(pacmanCurrentIndex % width === width - 1 && direction === 1) || // if he doesnt hit right wall
+    !(pacmanCurrentIndex % width === 0 && direction === -1) || // if he doesnt hit left wall
+    !(pacmanCurrentIndex - width < 0 && direction === -width)) {// if he doesnt hit top
+        
+        // animate moves
+        $squares[pacmanCurrentIndex].classList.remove("pacman");
+        pacmanCurrentIndex += direction;
+        // if he hits wall, back out
+        if($squares[pacmanCurrentIndex].classList.contains('wall')) { 
+            pacmanCurrentIndex -= direction;
+            $squares[pacmanCurrentIndex].classList.add("pacman");
+        } 
+        // else if() {
+        
+        // }
+        else {
+            $squares[pacmanCurrentIndex].classList.add("pacman");
         }
     }
-})
+}
+
+// Pacman control
+document.addEventListener('keydown', event => {
+    if(!isGameOver) {
+        switch(event.code) {
+            case "ArrowDown":
+            direction = width;
+            break;
+            case "ArrowUp":
+            direction = -width;
+            break;
+            case "ArrowLeft": 
+            direction = -1;
+            break;
+            case "ArrowRight": 
+            direction = 1;
+            break;
+            default: return;
+        }
+        animatePacman(direction);
+    }
+});
