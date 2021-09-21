@@ -32,6 +32,7 @@ const layout = [
     1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
     1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 
 ]
+let ghosts = {};
 let pacmanCurrentIndex = 500;
 let isGameOver = false;
 let pacmanDirection = -1;
@@ -91,16 +92,16 @@ function createGhosts() {
         }
     }
     
-    const ghosts = [
-        new Ghost("blinky", 348, 250),
-        new Ghost("pinky", 376, 400),
-        new Ghost("inky", 351, 300),
-        new Ghost("clyde", 379, 500),
+    ghosts = [
+        new Ghost('blinky', 348, 250),
+        new Ghost('pinky', 376, 400),
+        new Ghost('inky', 351, 300),
+        new Ghost('clyde', 379, 500),
     ];
     
     ghosts.forEach((ghost) => {
         const {className, startIndex} = ghost;
-        $squares[startIndex].classList.add(`${className}`, "ghost");
+        $squares[startIndex].classList.add(`${className}`, 'ghost');
     });
 }
 createGhosts();
@@ -125,9 +126,10 @@ function isWithinBoundaries(position, direction) {
     } else return false;
 }
 
-function animatePacman(pacmanDirection = -1) {
+function animatePacman() {
     // check if pacman is within boundary
     if(isWithinBoundaries(pacmanCurrentIndex, pacmanDirection)) {
+        console.log('isWithinBoundaries(pacmanCurrentIndex, pacmanDirection):', isWithinBoundaries(pacmanCurrentIndex, pacmanDirection))
         // calculate pacman moves
         $squares[pacmanCurrentIndex].classList.remove('pacman');
         pacmanCurrentIndex += pacmanDirection;
@@ -146,10 +148,10 @@ function animatePacman(pacmanDirection = -1) {
             eatPacDot(pacmanCurrentIndex);
         }
         
-        // draw new pacman
-        $squares[pacmanCurrentIndex].classList.add('pacman');
-        console.log('pacmanCurrentIndex:', pacmanCurrentIndex);
-    }
+    } else pacmanCurrentIndex -= pacmanDirection;
+    // draw new pacman
+    $squares[pacmanCurrentIndex].classList.add('pacman');
+    console.log('pacmanCurrentIndex:', pacmanCurrentIndex);
 }
 
 // Pacman control
@@ -175,5 +177,28 @@ document.addEventListener('keydown', event => {
 });
 
 function animateGhosts() {
+    const $ghosts = document.querySelectorAll('.ghost');
+    const directions = [-1, 1, -width, width];
+    // Randomize ghost's direction
     
+    ghosts.forEach(ghost => {
+        const {className, startIndex, speed} = ghost;
+        let {currentIndex, isScared, timerId} = ghost;
+        
+        timerId = setInterval(function (ghostDirection = 1) {
+          // let ghostDirection = directions[Math.floor(Math.random() * directions.length)];
+
+          // Animate ghosts
+          if (isWithinBoundaries(currentIndex, ghostDirection)) {
+            $squares[currentIndex].classList.remove(`${className}`, "ghost");
+            currentIndex += ghostDirection;
+            $squares[currentIndex].classList.add(`${className}`, "ghost");
+          }
+        }, speed);
+        
+    })
+    
+    //  console.log('ghostDirection:', ghostDirection)
 }
+
+animateGhosts();
